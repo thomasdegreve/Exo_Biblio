@@ -153,6 +153,8 @@ public class Gestion {
         System.out.println("etat  ");
         String etat=sc.next();
         System.out.println("ouvrage ");
+        System.out.println("rayon ");
+        // rayon=sc.next();
         int choix = Utilitaire.choixListe(louv);
         Exemplaire ex = new Exemplaire(mat,etat,louv.get(choix-1));
         lex.add(ex);
