@@ -1,8 +1,7 @@
 package bibliotheque;
 
 import bibliotheque.metier.*;
-import static bibliotheque.metier.TypeOuvrage.*;
-import static bibliotheque.metier.TypeLivre.*;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
