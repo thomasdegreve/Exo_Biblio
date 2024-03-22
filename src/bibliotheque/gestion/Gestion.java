@@ -5,10 +5,7 @@ import bibliotheque.utilitaires.Utilitaire;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Gestion {
     Scanner sc = new Scanner(System.in);
@@ -153,9 +150,10 @@ public class Gestion {
         System.out.println("etat  ");
         String etat=sc.next();
         System.out.println("ouvrage ");
-        System.out.println("rayon ");
-        // rayon=sc.next();
         int choix = Utilitaire.choixListe(louv);
+        System.out.println("rayon ");
+        int choixRayon = Utilitaire.choixListe(lrayon);
+        Rayon rayon = lrayon.get(choixRayon-1);
         Exemplaire ex = new Exemplaire(mat,etat,louv.get(choix-1));
         lex.add(ex);
         System.out.println("exemplaire créé");
@@ -205,30 +203,34 @@ public class Gestion {
                             LocalTime dureeTotale = Utilitaire.lecTime();
                             o=new CD(titre,ageMin,dp,ploc,langue,genre,code,nbrePlages,dureeTotale);
                             ;break;
-                case 3 :
-                            System.out.println("code : ");
-                            code= sc.nextLong();
-                            dureeTotale=Utilitaire.lecTime();
-                            byte nbreBonus= sc.nextByte();
-                            o=new DVD(titre,ageMin,dp,ploc,langue,genre,code,dureeTotale,nbreBonus);
-                            System.out.println("autres langues");
-                            List<String> langues = new ArrayList<>(Arrays.asList("anglais","français","italien","allemand","fin"));
-                            do{
-                                choix=Utilitaire.choixListe(langues);
-                                if(choix==langues.size())break;
-                                ((DVD)o).getAutresLangues().add(langues.get(choix-1));//TODO vérifier unicité ou utiliser set et pas de doublon avec langue d'origine
-                            }while(true);
-                           System.out.println("sous-titres");
-                            do{
-                             choix=Utilitaire.choixListe(langues);
-                             if(choix==langues.size())break;
-                             ((DVD)o).getSousTitres().add(langues.get(choix-1));//TODO vérifier unicité ou utiliser set
-                             }while(true);
-                            ;break;
+            case 3:
+                System.out.println("code : ");
+                code = sc.nextLong();
+                dureeTotale = Utilitaire.lecTime();
+                byte nbreBonus = sc.nextByte();
+                o = new DVD(titre, ageMin, dp, ploc, langue, genre, code, dureeTotale, nbreBonus);
+                System.out.println("autres langues");
+                List<String> langues = new ArrayList<>(Arrays.asList("anglais", "français", "italien", "allemand", "fin"));
+                Set<String> autresLangues = new HashSet<>();
+                do {
+                    choix = Utilitaire.choixListe(langues);
+                    if (choix == langues.size()) break;
+                    autresLangues.add(langues.get(choix - 1));
+                } while (true);
+                ((DVD) o).setAutresLangues(autresLangues);
+                System.out.println("sous-titres");
+                Set<String> sousTitres = new HashSet<>();
+                do {
+                    choix = Utilitaire.choixListe(langues);
+                    if (choix == langues.size()) break;
+                    sousTitres.add(langues.get(choix - 1));
+                } while (true);
+                ((DVD) o).setSousTitres(sousTitres);
+                break;
             }
            louv.add(o);
         System.out.println("ouvrage créé");
-        //TODO ajouter 1 auteur à la liste des auteurs
+        gestAuteurs();
     }
 
        private void gestAuteurs() {

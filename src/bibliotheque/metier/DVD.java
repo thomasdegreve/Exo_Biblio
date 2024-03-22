@@ -5,6 +5,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 public class DVD extends Ouvrage{
 
@@ -48,7 +49,7 @@ public class DVD extends Ouvrage{
         return autresLangues;
     }
 
-    public void setAutresLangues(List<String> autresLangues) {
+    public void setAutresLangues(Set<String> autresLangues) {
         this.autresLangues = autresLangues;
     }
 
@@ -56,7 +57,7 @@ public class DVD extends Ouvrage{
         return sousTitres;
     }
 
-    public void setSousTitres(List<String> sousTitres) {
+    public void setSousTitres(Set<String> sousTitres) {
         this.sousTitres = sousTitres;
     }
 
