@@ -50,7 +50,7 @@ public class DVD extends Ouvrage{
     }
 
     public void setAutresLangues(Set<String> autresLangues) {
-        this.autresLangues = autresLangues;
+        this.autresLangues = (List<String>) autresLangues;
     }
 
     public List<String> getSousTitres() {
@@ -58,7 +58,7 @@ public class DVD extends Ouvrage{
     }
 
     public void setSousTitres(Set<String> sousTitres) {
-        this.sousTitres = sousTitres;
+        this.sousTitres = (List<String>) sousTitres;
     }
 
     @Override
