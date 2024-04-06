@@ -20,7 +20,7 @@ public class Gestion {
     private List<Ouvrage> louv= new ArrayList<>();
     private List<Exemplaire> lex = new ArrayList<>();
     private List<Rayon> lrayon= new ArrayList<>();
-    private List<Location> lloc = new ArrayList<>();
+
 
 
     public void populate(){
@@ -72,15 +72,7 @@ public class Gestion {
         Lecteur lec = new Lecteur(1,"Dupont","Jean",LocalDate.of(2000,1,4),"Mons","jean.dupont@mail.com","0458774411");
         llect.add(lec);
 
-        Location loc = new Location(LocalDate.of(2023,2,1),LocalDate.of(2023,3,1),lec,e);
-        lloc.add(loc);
-        loc.setDateRestitution(LocalDate.of(2023,2,4));
 
-        lec = new Lecteur(1,"Durant","Aline",LocalDate.of(1980,10,10),"Binche","aline.durant@mail.com","045874444");
-        llect.add(lec);
-
-        loc = new Location(LocalDate.of(2023,2,5),LocalDate.of(2023,3,5),lec,e);
-        lloc.add(loc);
     }
 
     private void menu() {
@@ -94,24 +86,36 @@ public class Gestion {
                 case 3 : gestExemplaires();break;
                 case 4 : gestRayons();break;
                 case 5 : gestLecteurs();break;
-                case 6 : gestLocations();break;
-                case 7 : gestRestitution();break;
+                case 6 : gestRestitution();break;
                 default:System.exit(0);
             }
         }  while (true);
     }
 
     private void gestRestitution() {
-        //TODO lister exemplaires en location , choisir l'un d'entre eux, enregistrer sa restitution et éventuellement changer état
+
+        System.out.println("Exemplaires en location :");
+        for (Exemplaire ex : Exemplaire.Locations.keySet()) {
+            System.out.println("- " + ex);
+        }
+
+
+        System.out.println("Choisissez un exemplaire à restituer (entrez le numéro) :");
+        int choix = choixListe(new ArrayList<>(Exemplaire.Locations.keySet())); //keyset permet de retourner tous les elements de la map
+        if (choix == 0) return;
+        Exemplaire exemplaire = new ArrayList<>(Exemplaire.Locations.keySet()).get(choix - 1);
+
+
+        Exemplaire.Locations.remove(exemplaire);
+        System.out.println("Restitution enregistrée pour l'exemplaire : " + exemplaire);
     }
+
 
     private void gestLocations() {
         int choix;
         List<Exemplaire> lex2 = new ArrayList<>(lex);
         Iterator<Exemplaire> itlex2 = lex2.iterator();
-        while(itlex2.hasNext()){
-            if(itlex2.next().enLocation()) itlex2.remove();
-        }
+
         lex2.sort(new ExemplaireMatriculeComparator());
         choix =choixListe(lex2);
         if(choix==0)return;
@@ -119,7 +123,7 @@ public class Gestion {
         choix=choixListe(llect);
         if(choix==0)return;
         Lecteur lec = llect.get(choix-1);
-        lloc.add(new Location(lec,ex));
+
     }
 
     private void gestLecteurs() {
