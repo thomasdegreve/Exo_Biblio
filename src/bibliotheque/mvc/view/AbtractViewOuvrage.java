@@ -21,7 +21,7 @@ public abstract class AbstractViewRayon implements Observer {
     }
 
     @Override
-    public void update(List<Rayon> rayons) {
+    public void update (List<Rayon> rayons) {
         this.rayons = rayons;
         displayList(rayons);
     }
