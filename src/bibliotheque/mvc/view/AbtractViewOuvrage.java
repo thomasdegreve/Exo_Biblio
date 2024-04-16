@@ -1,6 +1,8 @@
 package bibliotheque.mvc.view;
 
 import bibliotheque.metier.Rayon;
+import bibliotheque.mvc.observer.Observer;
+
 import java.util.List;
 
 public abstract class AbstractViewRayon implements Observer {
