@@ -4,53 +4,14 @@ import bibliotheque.metier.Auteur;
 import bibliotheque.metier.Livre;
 import bibliotheque.metier.Ouvrage;
 import bibliotheque.metier.TypeLivre;
+import bibliotheque.mvc.model.DAOSpecialAuteur;
+import bibliotheque.mvc.model.ModelList;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public abstract class ModelAuteur extends DAOAuteur {
-
-    private List<Auteur> ldatas = new ArrayList<>();
-
-
-    @Override
-    public Auteur add( Auteur elt) {
-        boolean present =ldatas.contains(elt);
-        if (!present) {
-            ldatas.add(elt);
-            notifyObservers();
-            return elt;
-        } else return null;
-    }
-
-    @Override
-    public boolean remove( Auteur elt) {
-        boolean ok = ldatas.remove(elt);
-        notifyObservers();
-        return ok;
-    }
-
-    @Override
-    public Auteur update(Auteur elt) {
-        int p = ldatas.indexOf(elt);
-        if (p < 0) return null;
-        ldatas.set(p, elt);
-        notifyObservers();
-        return elt;
-    }
-
-    @Override
-    public Auteur read(Auteur rech) {
-        int p = ldatas.indexOf(rech);
-        if(p<0) return null;
-        return ldatas.get(p);
-    }
-
-    @Override
-    public List<Auteur> getAll() {
-        return ldatas;
-    }
+public class ModelAuteur extends ModelList<Auteur> implements DAOSpecialAuteur {
     @Override
     public Set<Ouvrage> listerOuvrages(Auteur a) {
         return a.listerOuvrages();
