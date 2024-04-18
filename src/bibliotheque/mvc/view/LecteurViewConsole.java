@@ -80,11 +80,15 @@ public class LecteurViewConsole extends AbstractView<Lecteur> {
             try {
                 String nom = modifyIfNotBlank("nom", l.getNom());
                 String prenom = modifyIfNotBlank("prénom", l.getPrenom());
-                String mail = modifyIfNotBlank("nationalité", l.getMail());
+                String mail = modifyIfNotBlank("mail", l.getMail());
+                String adresse = modifyIfNotBlank("adresse", l.getAdresse());
+                String tel = modifyIfNotBlank("tel", l.getTel());
                 l.setNom(nom);
                 l.setPrenom(prenom);
                 l.setMail(mail);
-                //TODO gérer autres valeurs
+                l.setAdresse(adresse);
+                l.setTel(tel);
+
                 break;
             } catch (Exception e) {
                 System.out.println("erreur :" + e);

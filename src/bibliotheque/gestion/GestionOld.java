@@ -96,7 +96,49 @@ public class GestionOld {
     }
 
     private void gestRestitution() {
-        //TODO lister exemplaires en location , choisir l'un d'entre eux, enregistrer sa restitution et éventuellement changer état
+
+            // Lister les exemplaires en location
+            System.out.println("Exemplaires en location :");
+            int index = 1;
+            for (Map.Entry<Exemplaire, Lecteur> entry : LOCATIONS.entrySet()) {
+                System.out.println(index + ". " + entry.getKey().getMatricule() + " - " + entry.getKey().getOuvrage().getTitre() +
+                        " - Emprunté par : " + entry.getValue().getNom() + " " + entry.getValue().getPrenom());
+                index++;
+            }
+
+            // Demander à l'utilisateur de choisir un exemplaire à restituer
+            System.out.println("Choisissez l'exemplaire à restituer (entrez le numéro) :");
+            int choix = sc.nextInt();
+            sc.nextLine(); // Pour consommer la fin de ligne
+
+            // Vérifier si le choix est valide
+            if (choix < 1 || choix > LOCATIONS.size()) {
+                System.out.println("Choix invalide.");
+                return;
+            }
+
+            // Retirer l'exemplaire de la liste des locations
+            Exemplaire exemplaireARestituer = null;
+            int count = 1;
+            for (Exemplaire exemplaire : LOCATIONS.keySet()) {
+                if (count == choix) {
+                    exemplaireARestituer = exemplaire;
+                    break;
+                }
+                count++;
+            }
+
+            if (exemplaireARestituer != null) {
+                LOCATIONS.remove(exemplaireARestituer);
+                System.out.println("Restitution enregistrée pour l'exemplaire : " + exemplaireARestituer.getMatricule());
+
+                // Éventuellement changer l'état de l'exemplaire ici
+                // Vous pouvez ajouter du code pour permettre à l'utilisateur de modifier l'état
+            } else {
+                System.out.println("Exemplaire non trouvé.");
+            }
+        }
+
     }
 
     private void gestLocations() {

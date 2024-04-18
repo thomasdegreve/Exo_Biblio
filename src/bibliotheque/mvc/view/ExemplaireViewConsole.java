@@ -1,9 +1,6 @@
 package bibliotheque.mvc.view;
 
-import bibliotheque.metier.Exemplaire;
-import bibliotheque.metier.Mail;
-import bibliotheque.metier.Ouvrage;
-import bibliotheque.metier.Rayon;
+import bibliotheque.metier.*;
 import bibliotheque.mvc.GestionMVC;
 import bibliotheque.mvc.controller.ControllerSpecialExemplaire;
 import java.util.Arrays;
@@ -102,12 +99,12 @@ public class ExemplaireViewConsole extends AbstractView<Exemplaire> {
                 String descr = sc.nextLine();
                 System.out.println("ouvrage : ");
                 List<Ouvrage> lo = GestionMVC.ov.getAll();
-                //TODO présenter les ouvrages par ordre de titre ==> classe anonyme
+                lo.sort((o1, o2) -> o1.getTitre().compareToIgnoreCase(o2.getTitre()));
                 int ch = choixListe(lo);
                 a = new Exemplaire(mat, descr,lo.get(ch-1));
                 System.out.println("rayon");
                 List<Rayon> lr = GestionMVC.rv.getAll();
-                //TODO présenter les rayons par ordre de code ==> classe anonyme
+                lr.sort((r1, r2) -> r1.getCodeRayon().compareToIgnoreCase(r2.getCodeRayon()));
                 ch= choixListe(lr);
                 a.setRayon(lr.get(ch-1));
                 break;
@@ -155,8 +152,26 @@ public class ExemplaireViewConsole extends AbstractView<Exemplaire> {
    }
 
     private void louer(Exemplaire a) {
-        //TODO chosir un lecteur et enregistrer la location dans LOCATIONS
+        // Afficher la liste des lecteurs disponibles
+        List<Lecteur> lecteursDisponibles = GestionMVC.lv.getAll();
+        System.out.println("Choisissez un lecteur :");
+        for (int i = 0; i < lecteursDisponibles.size(); i++) {
+            System.out.println((i + 1) + ". " + lecteursDisponibles.get(i).getNom());
+        }
+
+        // Demander à l'utilisateur de choisir un lecteur
+        int choixLecteur = choixListe(lecteursDisponibles);
+        if (choixLecteur == 0) {
+            System.out.println("Opération annulée.");
+            return;
+        }
+
+        // Enregistrer la location dans LOCATIONS
+        Lecteur lecteurChoisi = lecteursDisponibles.get(choixLecteur - 1);
+        GestionMVC.LOCATIONS.put(a, lecteurChoisi);
+        System.out.println("Exemplaire loué à " + lecteurChoisi.getNom());
     }
+
 
 
     public void enLocation(Exemplaire ex) {
