@@ -1,4 +1,4 @@
-package bibliotheque.mvcold.model;
+package bibliotheque.mvcbeta.model;
 
 import bibliotheque.metier.Auteur;
 import bibliotheque.metier.Livre;
@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 public interface DAOSpecialAuteur {
+
     public Set<Ouvrage> listerOuvrages(Auteur a);
 
     public List<Livre> listerLivre(Auteur a, TypeLivre tl);

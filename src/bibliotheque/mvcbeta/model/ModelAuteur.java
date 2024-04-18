@@ -1,17 +1,14 @@
-package bibliotheque.mvcold.model;
+package bibliotheque.mvcbeta.model;
 
 import bibliotheque.metier.Auteur;
 import bibliotheque.metier.Livre;
 import bibliotheque.metier.Ouvrage;
 import bibliotheque.metier.TypeLivre;
-import bibliotheque.mvc.model.DAOSpecialAuteur;
-import bibliotheque.mvc.model.ModelList;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class ModelAuteur extends ModelList<Auteur> implements DAOSpecialAuteur {
+public class ModelAuteur extends ModelList<Auteur> implements DAOSpecialAuteur{
     @Override
     public Set<Ouvrage> listerOuvrages(Auteur a) {
         return a.listerOuvrages();
